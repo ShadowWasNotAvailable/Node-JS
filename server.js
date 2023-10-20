@@ -1,11 +1,14 @@
 
-var express = require('express');
-var path = require('path');
-
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
 const port = 80
 
-app.get(express.static('public'))
+var tasks = ["Oppvask", "Ta søppla", "Woppa"]
+
+
+
+app.use(express.static('public'))
 app.use(express.json())
 
 app.get('/', function (req, res) {
@@ -16,8 +19,18 @@ app.get('/hei', function (req, res) {
     res.send("woppa");
 });
 
-app.get('/ask', (req, res) => {
-    res.json({ message: "You send a request for /ask"});
+app.post('/ask', (req, res) => {
+    var task = req.body.task;
+    console.log(task);
+
+
+
+    res.json({ message: "You sent a request for /ask",
+        ammount: 10,
+        success: true,
+        woppa: true
+
+    })
 });
 
 app.listen(port, (error) =>{
