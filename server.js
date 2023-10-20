@@ -24,15 +24,20 @@ app.post('/ask', (req, res) => {
     console.log(task);
 
 
+    if (task){
+        tasks.push(task)
+        res.json({ success: true})
+        console.log("Task added")
+        console.log(task)
+    } else {
+        res.json({ success: false})
+                message: "no task sent"
+    }
+    });
 
-    res.json({ message: "You sent a request for /ask",
-        ammount: 10,
-        success: true,
-        woppa: true
-
-    })
-});
-
+app.get('/load_tasks', (req,res) => {
+    res.json({list_of_task: tasks})
+})
 app.listen(port, (error) =>{
     if (!error)
         console.log("Server is successfully running and app is listening on port "+ port)
