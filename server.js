@@ -38,6 +38,17 @@ app.post('/ask', (req, res) => {
 app.get('/load_tasks', (req,res) => {
     res.json({list_of_task: tasks})
 })
+
+app.delete('/delete/:index', (req, res) => {
+    var index = parseInt(req.params.index) // henter param kalt index fra linken
+    if (index >= 0 && index < tasks.length) {
+        tasks.splice(index, 1) // sletter en task fra listen
+        res.json({ success: true})
+    }else {
+        res.json({ success: false })
+    }
+})
+
 app.listen(port, (error) =>{
     if (!error)
         console.log("Server is successfully running and app is listening on port "+ port)
