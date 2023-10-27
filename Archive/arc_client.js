@@ -2,17 +2,17 @@ document.addEventListener('DOMContentLoaded', load())
 
 function ask(){
     console.log("clicked button")
-    //const text_field = document.getElementById('text_field')
-    const input_comment = document.getElementById('#comment').value;
-    console.log(input_comment)
+    const text_field = document.getElementById('text_field')
+    const task = document.getElementById('task').value;
+    console.log(task)
     
 
-    fetch('/send_comment', {
+    fetch('/ask', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Comment_value: input_comment })
+        body: JSON.stringify({ task: task })
     })
     .then (res => res.json())
     .then (data => {
@@ -24,9 +24,10 @@ function ask(){
             alert(data.message)    
         }
 
+        load()
+
     });
 }
-
 
 function load(){
 
@@ -34,11 +35,11 @@ function load(){
     .then(res => res.json())
     .then(data => {
         var EL_ul = document.getElementById('task_ul')
-        console.log(data.list_of_comments)
+        console.log(data.list_of_task)
         EL_ul.innerHTML = ''
-        data.list_of_comments.forEach((comments, index) => {
+        data.list_of_task.forEach((tasks, index) => {
             var li = document.createElement('li')
-            li.textContent = comments
+            li.textContent = tasks
            
 
 
@@ -64,5 +65,6 @@ function deleteTask(index){
         }else {
             alert("Could not deleate task")
         }
-    });
+    })
 }
+

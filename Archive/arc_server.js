@@ -4,6 +4,10 @@ const path = require('path');
 const app = express();
 const port = 80
 
+var tasks = ["Oppvask", "Ta søppla", "Woppa"]
+
+
+
 app.use(express.static('public'))
 app.use(express.json())
 
@@ -15,24 +19,24 @@ app.get('/hei', function (req, res) {
     res.send("woppa");
 });
 
-app.post('/send_comment', (req, res) => {
-    var comments = req.body.comment_value;
-    console.log(comments);
+app.post('/ask', (req, res) => {
+    var task = req.body.task;
+    console.log(task);
 
 
-    if (comments){
-        push(comments)
+    if (task){
+        tasks.push(task)
         res.json({ success: true})
-        console.log("Comment added")
-        console.log(comments)
+        console.log("Task added")
+        console.log(task)
     } else {
         res.json({ success: false})
-                message: "no comment sent"
+                message: "no task sent"
     }
     });
 
 app.get('/load_tasks', (req,res) => {
-    res.json({list_of_comments: input_comment})
+    res.json({list_of_task: tasks})
 })
 
 app.delete('/delete/:index', (req, res) => {
@@ -47,7 +51,7 @@ app.delete('/delete/:index', (req, res) => {
 
 app.listen(port, (error) =>{
     if (!error)
-        console.log("Server is successfully running and is listening on port "+ port)
+        console.log("Server is successfully running and app is listening on port "+ port)
     else
         console.log("Error occured, server can't start.", "Error code: ", error);
 })
