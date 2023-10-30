@@ -2,8 +2,10 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+//var sessions = require(express-session)
 const port = 80
 
+var list_comments = []
 app.use(express.static('public'))
 app.use(express.json())
 
@@ -17,11 +19,12 @@ app.get('/hei', function (req, res) {
 
 app.post('/send_comment', (req, res) => {
     var comments = req.body.comment_value;
+    console.log(1)
     console.log(comments);
 
 
     if (comments){
-        push(comments)
+        list_comments.push(comments)
         res.json({ success: true})
         console.log("Comment added")
         console.log(comments)
@@ -32,7 +35,7 @@ app.post('/send_comment', (req, res) => {
     });
 
 app.get('/load_tasks', (req,res) => {
-    res.json({list_of_comments: input_comment})
+    res.json({list_of_comments: list_comments})
 })
 
 app.delete('/delete/:index', (req, res) => {

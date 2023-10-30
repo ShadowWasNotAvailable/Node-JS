@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', load())
 function ask(){
     console.log("clicked button")
     //const text_field = document.getElementById('text_field')
-    const input_comment = document.getElementById('#comment').value;
+    const input_comment = document.getElementById('comment').value;
     console.log(input_comment)
     
 
@@ -33,9 +33,9 @@ function load(){
     fetch('/load_tasks')
     .then(res => res.json())
     .then(data => {
-        var EL_ul = document.getElementById('task_ul')
+        var EL_P = document.getElementById('comments_listed')
         console.log(data.list_of_comments)
-        EL_ul.innerHTML = ''
+        EL_P.innerHTML = ''
         data.list_of_comments.forEach((comments, index) => {
             var li = document.createElement('li')
             li.textContent = comments
