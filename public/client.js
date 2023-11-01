@@ -12,12 +12,12 @@ function ask(){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Comment_value: input_comment })
+        body: JSON.stringify({ comment_value: input_comment })
     })
     .then (res => res.json())
     .then (data => {
         if(data.success){
-            console.log("Task added on server")
+            console.log("Comment added on server")
             console.log(data)
         } else{
             console.log(data)
@@ -30,15 +30,15 @@ function ask(){
 
 function load(){
 
-    fetch('/load_tasks')
+    fetch('/load_comments')
     .then(res => res.json())
     .then(data => {
-        var EL_P = document.getElementById('comments_listed')
+        var EL_P = document.getElementById('Comment_box')
         console.log(data.list_of_comments)
         EL_P.innerHTML = ''
-        data.list_of_comments.forEach((comments, index) => {
-            var li = document.createElement('li')
-            li.textContent = comments
+        data.list_of_comments.forEach((list_comments, index) => {
+            var p = document.createElement('p')
+            p.textContent = list_comments
            
 
 
@@ -47,8 +47,8 @@ function load(){
             btn.onclick = function() {
                 deleteTask(index)
             }
-            li.appendChild(btn)
-            EL_ul.appendChild(li)
+            p.appendChild(btn)
+            EL_P.appendChild(p)
         });
     })
 }
@@ -62,7 +62,7 @@ function deleteTask(index){
         if (data.success){
             load()
         }else {
-            alert("Could not deleate task")
+            alert("Could not deleate comment")
         }
     });
 }

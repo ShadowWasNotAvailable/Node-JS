@@ -25,23 +25,25 @@ app.post('/send_comment', (req, res) => {
 
     if (comments){
         list_comments.push(comments)
-        res.json({ success: true})
         console.log("Comment added")
-        console.log(comments)
+        console.log(comments)        
+        res.json({ success: true})
+
     } else {
-        res.json({ success: false})
-                message: "no comment sent"
+        res.json({ success: false, message: "no comment sent"})
+               
     }
     });
 
-app.get('/load_tasks', (req,res) => {
+app.get('/load_comments', (req,res) => {
     res.json({list_of_comments: list_comments})
 })
 
 app.delete('/delete/:index', (req, res) => {
     var index = parseInt(req.params.index) // henter param kalt index fra linken
-    if (index >= 0 && index < tasks.length) {
-        tasks.splice(index, 1) // sletter en task fra listen
+    var comments = req.body;
+    if (index >= 0 && index < comments.length) {
+        comments.splice(index, 1) // sletter en task fra listen
         res.json({ success: true})
     }else {
         res.json({ success: false })
