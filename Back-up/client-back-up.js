@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', load())
-document.addEventListener('DOMContentLoaded', toBottom())
 
 function ask(){
     console.log("clicked button")
@@ -34,22 +33,24 @@ function load(){
     fetch('/load_comments')
     .then(res => res.json())
     .then(data => {
-        var EL_P = document.getElementById('messages_box')
+        var EL_P = document.getElementById('Comment_box')
         console.log(data.list_of_comments)
         EL_P.innerHTML = ''
         data.list_of_comments.forEach((list_comments, index) => {
             var p = document.createElement('p')
             p.textContent = list_comments
+           
+
+
+            var btn = document.createElement('button')
+            btn.textContent = 'Deleate'
+            btn.onclick = function() {
+                deleteTask(index)
+            }
+            p.appendChild(btn)
             EL_P.appendChild(p)
         });
     })
-    
-} // end load
-
-function toBottom(){
-        // Scroll to the bottom of the messages_box when the page loads
-        var messagesBox = document.getElementById('messages_box');
-        messagesBox.scrollTop = messagesBox.scrollHeight;
 }
 
 function deleteTask(index){
@@ -65,5 +66,3 @@ function deleteTask(index){
         }
     });
 }
-
-setInterval(load, 1000)

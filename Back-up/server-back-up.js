@@ -39,6 +39,17 @@ app.get('/load_comments', (req,res) => {
     res.json({list_of_comments: list_comments})
 })
 
+app.delete('/delete/:index', (req, res) => {
+    var index = parseInt(req.params.index) // henter param kalt index fra linken
+    var comments = req.body;
+    if (index >= 0 && index < comments.length) {
+        comments.splice(index, 1) // sletter en task fra listen
+        res.json({ success: true})
+    }else {
+        res.json({ success: false })
+    }
+})
+
 app.listen(port, (error) =>{
     if (!error)
         console.log("Server is successfully running and is listening on port "+ port)
