@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', load())
-document.addEventListener('DOMContentLoaded', toBottom())
 
 function ask(){
     console.log("clicked button")
-    //const text_field = document.getElementById('text_field')
     const input_comment = document.getElementById('comment').value;
     console.log(input_comment)
     
@@ -28,6 +26,32 @@ function ask(){
     });
 }
 
+function login(){
+    var username = document.getElementById('username').value
+    var password = document.getElementById('password').value
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username, password: password })
+    })
+
+
+
+
+    
+    .then(res => res.json())
+    .then(data => {
+      
+        if (data.success){
+            window.location.href = "index.html";
+        }else {
+            alert("Could not login!")
+        }
+    })
+}
 
 function load(){
 
@@ -66,4 +90,4 @@ function deleteTask(index){
     });
 }
 
-setInterval(load, 1000)
+ setInterval(load, 1000)       
