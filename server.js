@@ -47,7 +47,7 @@ app.post('/login', (req,res) => {
         if(req.body.password == user.password) {
             session = req.session
             session.username = user.username
-            
+            res.redirect('index.html')
         }
     } else {
         res.json({ success: false, message: "incorrect username or password"})

@@ -47,6 +47,7 @@ function login(){
       
         if (data.success){
             window.location.href = "index.html";
+            
         }else {
             alert("Could not login!")
         }
